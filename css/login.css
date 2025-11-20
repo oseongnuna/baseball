@@ -1,0 +1,19 @@
+* {
+  padding: 0;
+  margin: 0;
+  border: none;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+#container {
+  width: 1800px;
+  margin: 0 auto;
+}
+
+.img-wrapper {
+  float: left;
+  width: 900px;
+  height: 1200px;
+  background-image: url(../img/kbo_logo.jpg);
+  background-size: cover;
+}
