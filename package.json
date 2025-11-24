@@ -1,0 +1,30 @@
+{
+  "name": "baseball",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "oracledb": "^6.10.0"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oseongnuna/baseball.git"
+  },
+  "bugs": {
+    "url": "https://github.com/oseongnuna/baseball/issues"
+  },
+  "homepage": "https://github.com/oseongnuna/baseball#readme"
+}

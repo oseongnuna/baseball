@@ -1,0 +1,182 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  padding: 0;
+}
+#container {
+  font-family: "Roboto", sans-serif;
+  height: 100vh;
+  /* margin: 0 auto; */
+  display: flex;
+  overflow: hidden;
+}
+.left-section {
+  flex: 1;
+  background-image: url(../img/baseball.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  padding: 60px;
+  position: relative;
+}
+/* 이미지 위에 어두운 오버레이 추가 (선택사항) */
+.left-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 0;
+}
+.left-content {
+  z-index: 1;
+  text-align: center;
+}
+.left-content h1 {
+  font-size: 42px;
+  margin-bottom: 20px;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+.left-content p {
+  font-size: 18px;
+  opacity: 0.95;
+  line-height: 1.6;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+.right-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f8f9fa;
+  padding: 40px;
+}
+.login-container {
+  width: 100%;
+  max-width: 420px;
+  background-color: white;
+  padding: 50px 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+.login-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.login-header h2 {
+  color: #2c3e50;
+  font-size: 32px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+.login-header p {
+  color: #7f8c8d;
+  font-size: 15px;
+}
+.form-group {
+  margin-bottom: 25px;
+}
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #2c3e50;
+  font-weight: 500;
+  font-size: 14px;
+}
+.form-group input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: all 0.3s;
+  background-color: #fafafa;
+}
+.form-group input:focus {
+  outline: none;
+  border-color: #3498db;
+  background-color: white;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+.error-message {
+  color: #e74c3c;
+  font-size: 13px;
+  margin-top: 6px;
+  display: none;
+}
+.btn-login {
+  width: 100%;
+  padding: 15px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+.btn-login:hover {
+  background-color: #2980b9;
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+}
+.btn-login:active {
+  transform: translateY(0);
+}
+.signup-link {
+  text-align: center;
+  color: #7f8c8d;
+  font-size: 14px;
+}
+.signup-link a {
+  color: #3498db;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+.signup-link a:hover {
+  color: #2980b9;
+  text-decoration: underline;
+}
+
+@media (max-width: 968px) {
+  #container {
+    flex-direction: column;
+  }
+
+  .left-section {
+    flex: 0;
+    min-height: 250px;
+    padding: 40px;
+  }
+
+  .left-content h1 {
+    font-size: 28px;
+  }
+
+  .left-content p {
+    font-size: 14px;
+  }
+
+  .right-section {
+    flex: 1;
+  }
+
+  .login-container {
+    padding: 30px;
+  }
+}

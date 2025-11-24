@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>등록/수정 페이지</title>
+    <link rel="stylesheet" href="css/wirte.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="header-section">
+        <h1>⚾ 직관 기록 작성</h1>
+        <p class="subtitle">직관한 야구 경기의 소중한 순간을 기록하세요</p>
+      </div>
+      <form id="gameRecordForm">
+        <!-- 경기 기본 정보 -->
+        <div class="form-section">
+          <h3 class="section-title">경기 기본 정보</h3>
+
+          <div class="form-row">
+            <!-- 경기 날짜 -->
+            <div class="form-group">
+              <label for="game_date"
+                >경기 날짜<span class="required">*</span></label
+              >
+              <input type="date" id="game_date" name="game_date" />
+              <div class="error-message" id="gameDateError">
+                경기 날짜를 선택해주세요.
+              </div>
+            </div>
+
+            <!-- 구장 -->
+            <div class="form-group">
+              <label for="stadium">구장<span class="required">*</span></label>
+              <select id="stadium" name="stadium" required>
+                <option value="">선택하세요</option>
+                <option value="대구 삼성 라이온즈 파크">
+                  대구 삼성 라이온즈 파크
+                </option>
+                <option value="창원NC파크">창원NC파크</option>
+                <option value="잠실야구장">잠실야구장</option>
+                <option value="수원KT위즈파크">수원KT위즈파크</option>
+                <option value="문학야구장">문학야구장</option>
+                <option value="사직야구장">사직야구장</option>
+                <option value="대전한화생명이글스파크">
+                  대전한화생명이글스파크
+                </option>
+                <option value="고척스카이돔">고척스카이돔</option>
+                <option value="광주 기아 챔피언스 필드">
+                  광주 기아 챔피언스 필드
+                </option>
+              </select>
+              <div class="error-message" id="stadiumError">
+                구장을 선택해주세요.
+              </div>
+            </div>
+          </div>
+
+          <!-- 홈/어웨이 팀 -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="home_team"
+                >홈 팀<span class="required">*</span></label
+              >
+              <select id="home_team" name="home_team" required>
+                <option value="">선택하세요</option>
+                <option value="삼성">삼성 라이온즈</option>
+                <option value="LG">LG 트윈스</option>
+                <option value="두산">두산 베어스</option>
+                <option value="KT">KT 위즈</option>
+                <option value="SSG">SSG 랜더스</option>
+                <option value="키움">키움 히어로즈</option>
+                <option value="한화">한화 이글스</option>
+                <option value="롯데">롯데 자이언츠</option>
+                <option value="NC">NC 다이노스</option>
+                <option value="KIA">KIA 타이거즈</option>
+              </select>
+              <div class="error-message" id="homeTeamError">
+                홈 팀을 선택해주세요.
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="away_team"
+                >어웨이 팀<span class="required">*</span></label
+              >
+              <select id="away_team" name="away_team" required>
+                <option value="">선택하세요</option>
+                <option value="삼성">삼성 라이온즈</option>
+                <option value="LG">LG 트윈스</option>
+                <option value="두산">두산 베어스</option>
+                <option value="KT">KT 위즈</option>
+                <option value="SSG">SSG 랜더스</option>
+                <option value="키움">키움 히어로즈</option>
+                <option value="한화">한화 이글스</option>
+                <option value="롯데">롯데 자이언츠</option>
+                <option value="NC">NC 다이노스</option>
+                <option value="KIA">KIA 타이거즈</option>
+              </select>
+              <div class="error-message" id="awayTeamError">
+                어웨이 팀을 선택해주세요.
+              </div>
+            </div>
+          </div>
+
+          <!-- 선발 투수 -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="home_starter">홈 선발투수</label>
+              <input
+                type="text"
+                id="home_starter"
+                name="home_starter"
+                placeholder="예: 원태인"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="away_starter">어웨이 선발투수</label>
+              <input
+                type="text"
+                id="away_starter"
+                name="away_starter"
+                placeholder="예: 임찬규"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- 경기 결과 -->
+        <div class="form-section">
+          <h3 class="section-title">경기 결과</h3>
+
+          <!-- 최종 스코어 -->
+          <div class="form-group">
+            <label>최종 스코어<span class="required">*</span></label>
+            <div class="score-section">
+              <div class="score-input-group">
+                <div class="score-input">
+                  <label for="home_score" class="score-label">홈</label>
+                  <input
+                    type="number"
+                    id="home_score"
+                    name="home_score"
+                    min="0"
+                    max="99"
+                    placeholder="0"
+                    required
+                  />
+                </div>
+                <span class="score-colon">:</span>
+                <div class="score-input">
+                  <label for="away_score" class="score-label">어웨이</label>
+                  <input
+                    type="number"
+                    id="away_score"
+                    name="away_score"
+                    min="0"
+                    max="99"
+                    placeholder="0"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="error-message" id="finalScoreError">
+              점수를 입력해주세요.
+            </div>
+          </div>
+
+          <!-- 경기 결과 -->
+          <div class="form-group">
+            <label>경기 결과<span class="required">*</span></label>
+            <div class="radio-group">
+              <label class="radio-option">
+                <input
+                  type="radio"
+                  id="resultWin"
+                  name="game_result"
+                  value="승"
+                  required
+                />
+                <span>승</span>
+              </label>
+              <label class="radio-option">
+                <input
+                  type="radio"
+                  id="resultLose"
+                  name="game_result"
+                  value="패"
+                />
+                <span>패</span>
+              </label>
+              <label class="radio-option">
+                <input
+                  type="radio"
+                  id="resultDraw"
+                  name="game_result"
+                  value="무"
+                />
+                <span>무</span>
+              </label>
+            </div>
+            <div class="error-message" id="gameResultError">
+              경기 결과를 선택해주세요.
+            </div>
+          </div>
+
+          <!-- MVP 선수 -->
+          <div class="form-group">
+            <label for="mvp">MVP</label>
+            <input type="text" id="mvp" name="mvp" placeholder="예: 구자욱" />
+          </div>
+        </div>
+
+        <!-- 경기 기록 -->
+        <div class="form-section">
+          <h3 class="section-title">경기 기록</h3>
+
+          <div class="form-group">
+            <label for="record">기록</label>
+            <textarea
+              id="game_detail"
+              name="game_detail"
+              placeholder="타격/투구/수비 기록이나 경기 소감을 자유롭게 작성하세요&#10;&#10;예시:&#10;- 4타수 3안타(1홈런)&#10;- 7이닝 무실점 QS+&#10;- 구자욱 호수비!&#10;- 똥같은 경기ㅠㅠ"
+            ></textarea>
+          </div>
+        </div>
+
+        <!-- 버튼 그룹 -->
+        <div class="button-group">
+          <button type="submit" class="btn-submit">저장</button>
+          <button type="reset" class="btn-cancel">취소</button>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
