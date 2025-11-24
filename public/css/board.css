@@ -1,3 +1,4 @@
+/* 전역 스타일 */
 * {
   margin: 0;
   padding: 0;
@@ -10,6 +11,7 @@ body {
   padding: 20px;
 }
 
+/* 컨테이너 */
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -19,6 +21,7 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* 헤더 */
 header {
   display: flex;
   justify-content: space-between;
@@ -44,6 +47,7 @@ h1 {
   font-size: 14px;
 }
 
+/* 버튼 공통 스타일 */
 .btn {
   padding: 8px 16px;
   border: 1px solid #ddd;
@@ -51,6 +55,7 @@ h1 {
   cursor: pointer;
   font-size: 14px;
   border-radius: 4px;
+  transition: background 0.2s;
 }
 
 .btn:hover {
@@ -67,6 +72,22 @@ h1 {
   background: #45a049;
 }
 
+.btn-small {
+  padding: 4px 12px;
+  font-size: 13px;
+}
+
+.btn-delete {
+  background-color: #f44336;
+  color: white;
+  border: none;
+}
+
+.btn-delete:hover {
+  background-color: #d32f2f;
+}
+
+/* 게시판 헤더 */
 .board-header {
   display: flex;
   justify-content: space-between;
@@ -79,6 +100,7 @@ h1 {
   font-size: 14px;
 }
 
+/* 테이블 */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -104,29 +126,51 @@ td {
   color: #555;
 }
 
+tbody tr {
+  transition: background 0.2s;
+}
+
 tbody tr:hover {
   background: #f8f9fa;
 }
 
-.result-win {
-  color: #2196f3;
+/* 결과 뱃지 */
+.result-badge {
+  padding: 4px 12px;
+  border-radius: 12px;
   font-weight: bold;
+  font-size: 14px;
+  display: inline-block;
 }
 
-.result-lose {
-  color: #f44336;
-  font-weight: bold;
+.result-badge.win {
+  background-color: #e3f2fd;
+  color: #1976d2;
 }
 
-.result-draw {
+.result-badge.lose {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.result-badge.draw {
+  background-color: #f5f5f5;
   color: #757575;
-  font-weight: bold;
 }
 
-.match-info {
-  white-space: nowrap;
+/* 빈 메시지 */
+.empty-message {
+  text-align: center;
+  padding: 60px 20px;
+  color: #999;
 }
 
+.empty-message p {
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+/* 페이지네이션 (향후 사용) */
 .pagination {
   display: flex;
   justify-content: center;
@@ -141,6 +185,7 @@ tbody tr:hover {
   cursor: pointer;
   font-size: 14px;
   border-radius: 4px;
+  transition: background 0.2s;
 }
 
 .page-btn:hover {
@@ -151,14 +196,4 @@ tbody tr:hover {
   background: #333;
   color: white;
   border-color: #333;
-}
-
-.empty-message {
-  text-align: center;
-  padding: 60px 20px;
-  color: #999;
-}
-
-.empty-message p {
-  margin-bottom: 20px;
 }

@@ -58,7 +58,7 @@ form.addEventListener("submit", async function (e) {
       user_id: document.getElementById("user_id").value.trim(),
       password: document.getElementById("password").value,
     };
-    console.log(formData);
+    console.log("formData: ", formData);
 
     // API 호출
     try {
@@ -70,6 +70,8 @@ form.addEventListener("submit", async function (e) {
         body: JSON.stringify(formData),
       });
       const result = await response.json();
+
+      console.log("result: ", result);
 
       if (result.success) {
         alert(result.message);

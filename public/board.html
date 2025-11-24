@@ -16,7 +16,7 @@
         </div>
       </header>
       <div class="board-header">
-        <div class="total-count">총 <strong>5</strong>건</div>
+        <div class="total-count">총 <strong>0</strong>건</div>
         <button class="btn btn-primary" onclick="location.href='write.html'">
           글쓰기
         </button>
@@ -27,20 +27,27 @@
           <tr>
             <th style="width: 60px">번호</th>
             <th style="width: 100px">날짜</th>
-            <th style="width: 150px">구장</th>
-            <th>매치업</th>
+            <th style="width: 180px">구장</th>
+            <th style="width: 150px">매치업</th>
             <th style="width: 100px">스코어</th>
             <th style="width: 80px">결과</th>
             <th style="width: 120px">MVP</th>
-            <th style="width: 120px">기록</th>
+            <th style="width: 120px">삭제</th>
           </tr>
         </thead>
+        <tbody>
+          <!-- 여기에 동적으로 데이터가 추가됩니다 -->
+        </tbody>
       </table>
+      
       <!-- 데이터가 없을 때 -->
-      <div class="empty-message">
+      <div class="empty-message" style="display: none;">
         <p>아직 작성된 직관 기록이 없습니다.</p>
-        <button class="btn btn-primary">첫 직관 기록하기</button>
+        <button class="btn btn-primary" onclick="location.href='write.html'">
+          첫 직관 기록하기
+        </button>
       </div>
     </div>
+    <script src="js/board.js"></script>
   </body>
 </html>
