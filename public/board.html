@@ -9,9 +9,9 @@
   <body>
     <div class="container">
       <header>
-        <h1>⚾ 나의 야구 관람 기록</h1>
+        <h1>⚾ 나의 야구 직관 기록</h1>
         <div class="header-right">
-          <span class="user-info">홍길동님</span>
+          <span class="user-info"></span>
           <button class="btn">로그아웃</button>
         </div>
       </header>
@@ -32,6 +32,7 @@
             <th style="width: 100px">스코어</th>
             <th style="width: 80px">결과</th>
             <th style="width: 120px">MVP</th>
+            <th style="width: 120px">수정</th>
             <th style="width: 120px">삭제</th>
           </tr>
         </thead>
@@ -39,9 +40,9 @@
           <!-- 여기에 동적으로 데이터가 추가됩니다 -->
         </tbody>
       </table>
-      
+
       <!-- 데이터가 없을 때 -->
-      <div class="empty-message" style="display: none;">
+      <div class="empty-message" style="display: none">
         <p>아직 작성된 직관 기록이 없습니다.</p>
         <button class="btn btn-primary" onclick="location.href='write.html'">
           첫 직관 기록하기

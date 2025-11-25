@@ -15,9 +15,10 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // url : 실행함수 => 라우팅.
 app.get("/", (req, res) => {
-  res.send("/ 호출됨.");
+  res.redirect("/login.html");
 });
 
+// 회원가입
 app.post("/api/signup", async (req, res) => {
   let connection;
 
@@ -75,13 +76,14 @@ app.post("/api/signup", async (req, res) => {
   }
 });
 
+// 로그인
 app.post("/api/login", async (req, res) => {
   let connection;
 
   try {
     console.log(req.body);
-    const { user_id, password } = req.body;
 
+    const { user_id, password } = req.body;
     connection = await db.getConnection();
 
     // 존재하는 아이디인지 확인
@@ -136,6 +138,274 @@ app.post("/api/login", async (req, res) => {
     res.status(500).json({
       success: false,
       message: "서버 오류가 발생했습니다.",
+    });
+  } finally {
+    if (connection) {
+      try {
+        await connection.close();
+        console.log("DB 연결 종료");
+      } catch (err) {
+        console.error("연결 종료 오류:", err);
+      }
+    }
+  }
+});
+
+// 글 작성
+app.post("/api/write", async (req, res) => {
+  let connection;
+
+  try {
+    console.log(req.body);
+    const {
+      user_id,
+      game_date,
+      stadium,
+      home_team,
+      away_team,
+      home_starter,
+      away_starter,
+      home_score,
+      away_score,
+      game_result,
+      mvp,
+      game_detail,
+    } = req.body; // 구조 분해 할당
+
+    connection = await db.getConnection();
+
+    const result = await connection.execute(
+      `INSERT INTO baseball_record 
+     (user_id, game_date, stadium, home_team, away_team, 
+      home_starter, away_starter, home_score, away_score, 
+      game_result, mvp, game_detail)
+     VALUES 
+     (:user_id, TRUNC(TO_DATE(:game_date, 'YYYY-MM-DD')), :stadium, :home_team, :away_team,
+      :home_starter, :away_starter, :home_score, :away_score,
+      :game_result, :mvp, :game_detail)`,
+      {
+        user_id,
+        game_date,
+        stadium,
+        home_team,
+        away_team,
+        home_starter, // NULL 가능
+        away_starter, // NULL 가능
+        home_score,
+        away_score,
+        game_result,
+        mvp, // NULL 가능
+        game_detail, // NULL 가능
+      },
+      { autoCommit: true }
+    );
+
+    res.json({
+      success: true,
+      message: "기록이 저장되었습니다.",
+    });
+  } catch (err) {
+    console.error("기록 저장 실패:", err);
+    res.status(500).json({
+      success: false,
+      message: "기록 저장에 실패했습니다.",
+    });
+  } finally {
+    if (connection) {
+      try {
+        await connection.close();
+        console.log("DB 연결 종료");
+      } catch (err) {
+        console.error("연결 종료 오류:", err);
+      }
+    }
+  }
+});
+
+// 목록 조회
+app.get("/api/game-records", async (req, res) => {
+  let connection;
+
+  try {
+    // 쿼리 파라미터에서 user_id 가져오기
+    const { user_id } = req.query;
+
+    if (!user_id) {
+      return res.status(400).json({
+        success: false,
+        message: "user_id가 필요합니다.",
+      });
+    }
+
+    connection = await db.getConnection();
+
+    const result = await connection.execute(
+      `SELECT * FROM baseball_record
+       WHERE user_id = :user_id 
+      ORDER BY game_date DESC, ID DESC`,
+      { user_id }
+    );
+
+    // console.log("조회된 데이터:", result.rows);
+
+    res.json({
+      success: true,
+      records: result.rows,
+    });
+  } catch (error) {
+    console.error("에러:", error);
+    res.status(500).json({
+      success: false,
+      message: "조회 실패",
+    });
+  } finally {
+    if (connection) {
+      await connection.close();
+    }
+  }
+});
+
+// 게시글 삭제
+app.delete("/api/game-records/:id", async (req, res) => {
+  let connection;
+
+  const { id } = req.params;
+  const { user_id } = req.query;
+
+  try {
+    // user_id 확인
+    if (!user_id) {
+      return res.status(400).json({
+        success: false,
+        message: "user_id가 필요합니다.",
+      });
+    }
+
+    connection = await db.getConnection();
+
+    // 본인의 기록만 삭제
+    const result = await connection.execute(
+      `DELETE FROM baseball_record 
+       WHERE ID = :id AND user_id = :user_id`,
+      { id, user_id },
+      { autoCommit: true }
+    );
+
+    // 삭제된 행이 없으면 (기록이 없거나 본인 기록이 아님)
+    if (result.rowsAffected === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "삭제할 기록을 찾을 수 없거나 권한이 없습니다.",
+      });
+    }
+
+    console.log(`ID ${id} 삭제 완료`);
+
+    res.json({
+      success: true,
+      message: "기록이 삭제되었습니다.",
+    });
+  } catch (err) {
+    console.error("삭제 실패:", err);
+    res.status(500).json({
+      success: false,
+      message: "삭제에 실패했습니다.",
+    });
+  } finally {
+    if (connection) {
+      try {
+        await connection.close();
+        console.log("DB 연결 종료");
+      } catch (err) {
+        console.error("연결 종료 오류:", err);
+      }
+    }
+  }
+});
+
+// 게시글 수정
+app.put("/api/game-records/:id", async (req, res) => {
+  let connection;
+
+  const { id } = req.params;
+  const {
+    user_id,
+    game_date,
+    stadium,
+    home_team,
+    away_team,
+    home_starter,
+    away_starter,
+    home_score,
+    away_score,
+    game_result,
+    mvp,
+    game_detail,
+  } = req.body;
+
+  try {
+    // user_id 확인
+    if (!user_id) {
+      return res.status(400).json({
+        success: false,
+        message: "user_id가 필요합니다.",
+      });
+    }
+
+    connection = await db.getConnection();
+
+    // 본인의 기록만 수정
+    const result = await connection.execute(
+      `UPDATE baseball_record 
+       SET game_date = TRUNC(TO_DATE(:game_date, 'YYYY-MM-DD')),
+           stadium = :stadium,
+           home_team = :home_team,
+           away_team = :away_team,
+           home_starter = :home_starter,
+           away_starter = :away_starter,
+           home_score = :home_score,
+           away_score = :away_score,
+           game_result = :game_result,
+           mvp = :mvp,
+           game_detail = :game_detail
+       WHERE ID = :id AND user_id = :user_id`,
+      {
+        game_date,
+        stadium,
+        home_team,
+        away_team,
+        home_starter,
+        away_starter,
+        home_score,
+        away_score,
+        game_result,
+        mvp,
+        game_detail,
+        id,
+        user_id,
+      },
+      { autoCommit: true }
+    );
+
+    // 수정된 행이 없으면 (기록이 없거나 본인 기록이 아님)
+    if (result.rowsAffected === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "수정할 기록을 찾을 수 없거나 권한이 없습니다.",
+      });
+    }
+
+    console.log(`ID ${id} 수정 완료`);
+
+    res.json({
+      success: true,
+      message: "기록이 수정되었습니다.",
+    });
+  } catch (err) {
+    console.error("수정 실패:", err);
+    res.status(500).json({
+      success: false,
+      message: "수정에 실패했습니다.",
     });
   } finally {
     if (connection) {
